@@ -3,7 +3,6 @@ let computerScore = 0;
 
 function getComputerChoice() {
   const randomNumber = Math.floor(Math.random() * 3);
-  //   console.log(randomNumber);
   return randomNumber === 0
     ? "Rock"
     : randomNumber === 1
@@ -38,25 +37,39 @@ function returnResult(winner, humanChoice, computerChoice) {
 }
 
 function playRound(humanChoice, computerChoice) {
-  if (humanChoice === "Rock") {
-    if (computerChoice === "Scissors") {
-      returnResult("human", humanChoice, computerChoice);
-    } else if (computerChoice === "Paper") {
-      returnResult("computer", humanChoice, computerChoice);
-    } else returnResult("tie", humanChoice, computerChoice);
-  } else if (humanChoice === "Paper") {
-    if (computerChoice === "Rock") {
-      returnResult("human", humanChoice, computerChoice);
-    } else if (computerChoice === "Scissors") {
-      returnResult("computer", humanChoice, computerChoice);
-    } else returnResult("tie", humanChoice, computerChoice);
-  } else if (humanChoice === "Scissors") {
-    if (computerChoice === "Paper") {
-      returnResult("human", humanChoice, computerChoice);
-    } else if (computerChoice === "Rock") {
-      returnResult("computer", humanChoice, computerChoice);
-    } else returnResult("tie", humanChoice, computerChoice);
-  }
+  if (
+    (humanChoice === "Rock" && computerChoice === "Scissors") ||
+    (humanChoice === "Paper" && computerChoice === "Rock") ||
+    (humanChoice === "Scissors" && computerChoice === "Paper")
+  )
+    returnResult("human", humanChoice, computerChoice);
+  else if (
+    (humanChoice === "Rock" && computerChoice === "Paper") ||
+    (humanChoice === "Paper" && computerChoice === "Scissors") ||
+    (humanChoice === "Scissors" && computerChoice === "Rock")
+  )
+    returnResult("computer", humanChoice, computerChoice);
+  else returnResult("tie", humanChoice, computerChoice);
+
+  //   if (humanChoice === "Rock") {
+  //     if (computerChoice === "Scissors") {
+  //       returnResult("human", humanChoice, computerChoice);
+  //     } else if (computerChoice === "Paper") {
+  //       returnResult("computer", humanChoice, computerChoice);
+  //     } else returnResult("tie", humanChoice, computerChoice);
+  //   } else if (humanChoice === "Paper") {
+  //     if (computerChoice === "Rock") {
+  //       returnResult("human", humanChoice, computerChoice);
+  //     } else if (computerChoice === "Scissors") {
+  //       returnResult("computer", humanChoice, computerChoice);
+  //     } else returnResult("tie", humanChoice, computerChoice);
+  //   } else if (humanChoice === "Scissors") {
+  //     if (computerChoice === "Paper") {
+  //       returnResult("human", humanChoice, computerChoice);
+  //     } else if (computerChoice === "Rock") {
+  //       returnResult("computer", humanChoice, computerChoice);
+  //     } else returnResult("tie", humanChoice, computerChoice);
+  //   }
 }
 
 function playGame() {
