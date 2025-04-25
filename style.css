@@ -1,0 +1,82 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 3rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 20px;
+}
+
+#game {
+  position: relative;
+  max-width: 1000px;
+  height: 100vh;
+  color: wheat;
+  background-color: rgb(196, 67, 67);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#header {
+  border-radius: 10px;
+  border: 2px solid #e2dab0;
+  background-color: #3e1f43;
+  padding: 2rem;
+  width: 90%;
+  margin: 1rem;
+  box-shadow: 0 0 20px #3e1f43;
+}
+
+button {
+  background-color: #3e1f43;
+  color: wheat;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #5e3f63;
+}
+
+#score {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#restart {
+  position: relative;
+  bottom: 0;
+  display: block;
+  opacity: 100;
+  margin-top: 2rem;
+  transition-duration: 400ms;
+  transition-property: all;
+}
+
+.invisible {
+  opacity: 0% !important;
+  margin-top: 0 !important;
+  pointer-events: none;
+  transition-duration: 400ms;
+  transition-property: all;
+}
+
+#restartButton {
+  background-color: #3e1f43;
+  color: wheat;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}

@@ -1,5 +1,36 @@
 let humanScore = 0;
 let computerScore = 0;
+let isRestart = false;
+
+const buttons = document.querySelectorAll("button");
+const restartButton = document.querySelector("#restartButton");
+restartButton.addEventListener("click", () => {
+  humanScore = 0;
+  computerScore = 0;
+  humanScoreText.textContent = humanScore;
+  computerScoreText.textContent = computerScore;
+  result.textContent = "New Game! Make your choice!";
+  restart.classList.add("invisible");
+  buttons.forEach((button) => {
+    button.style.opacity = "1";
+    button.disabled = false;
+    button.style.pointerEvents = "auto";
+  });
+  isRestart = false;
+});
+const result = document.querySelector("#resultText");
+const restart = document.querySelector("#restart");
+const humanScoreText = document.querySelector("#humanScore");
+const computerScoreText = document.querySelector("#computerScore");
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (!isRestart) playRound(button.getAttribute("id"), getComputerChoice());
+  });
+});
+
+humanScoreText.textContent = humanScore;
+computerScoreText.textContent = computerScore;
 
 function getComputerChoice() {
   const randomNumber = Math.floor(Math.random() * 3);
@@ -10,30 +41,18 @@ function getComputerChoice() {
     : "Scissors";
 }
 
-function getHumanChoice() {
-  const input = prompt("Choose between 'Rock', 'Paper' or 'Scissors'!", "Rock");
-  return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
-}
-
 function returnResult(winner, humanChoice, computerChoice) {
   if (winner === "human") {
     humanScore += 1;
-    console.log(
-      `Congrats! Your ${humanChoice} beats the computer's ${computerChoice}!`
-    );
+    result.textContent = `Congrats! Your ${humanChoice} beats the computer's ${computerChoice}!`;
+    humanScoreText.textContent = humanScore;
   } else if (winner === "computer") {
     computerScore += 1;
-    console.log(
-      `Whoops! The computer's ${computerChoice} beats your ${humanChoice}!`
-    );
+    result.textContent = `Whoops! The computer's ${computerChoice} beats your ${humanChoice}!`;
+    computerScoreText.textContent = computerScore;
   } else {
-    console.log(
-      `Tie between your ${humanChoice} and the computer's ${computerChoice}!`
-    );
+    result.textContent = `Tie between your ${humanChoice} and the computer's ${computerChoice}!`;
   }
-  console.log(
-    `Your score: ${humanScore}\nThe Computer's score: ${computerScore}`
-  );
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -50,38 +69,25 @@ function playRound(humanChoice, computerChoice) {
   )
     returnResult("computer", humanChoice, computerChoice);
   else returnResult("tie", humanChoice, computerChoice);
-
-  //   if (humanChoice === "Rock") {
-  //     if (computerChoice === "Scissors") {
-  //       returnResult("human", humanChoice, computerChoice);
-  //     } else if (computerChoice === "Paper") {
-  //       returnResult("computer", humanChoice, computerChoice);
-  //     } else returnResult("tie", humanChoice, computerChoice);
-  //   } else if (humanChoice === "Paper") {
-  //     if (computerChoice === "Rock") {
-  //       returnResult("human", humanChoice, computerChoice);
-  //     } else if (computerChoice === "Scissors") {
-  //       returnResult("computer", humanChoice, computerChoice);
-  //     } else returnResult("tie", humanChoice, computerChoice);
-  //   } else if (humanChoice === "Scissors") {
-  //     if (computerChoice === "Paper") {
-  //       returnResult("human", humanChoice, computerChoice);
-  //     } else if (computerChoice === "Rock") {
-  //       returnResult("computer", humanChoice, computerChoice);
-  //     } else returnResult("tie", humanChoice, computerChoice);
-  //   }
+  checkWinner();
 }
 
-function playGame() {
-  while (humanScore < 3 && computerScore < 3) {
-    playRound(getHumanChoice(), getComputerChoice());
+function checkWinner() {
+  if (humanScore === 5) {
+    result.textContent = "Congrats! You beat the computer!";
+    restartGame();
+  } else if (computerScore === 5) {
+    result.textContent = "Whoops! The computer beat you!";
+    restartGame();
   }
-  if (humanScore > computerScore)
-    console.log("CONGRATZ! You beat the computer!");
-  else console.log("OUCH! The computer beat you!");
 }
 
-playGame();
-
-// getHumanChoice();
-// console.log(getComputerChoice());
+function restartGame() {
+  restart.classList.remove("invisible");
+  isRestart = true;
+  buttons.forEach((button) => {
+    button.style.opacity = "0.5";
+    button.disabled = true;
+    button.style.pointerEvents = "none";
+  });
+}
